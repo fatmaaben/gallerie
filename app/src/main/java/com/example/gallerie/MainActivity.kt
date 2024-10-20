@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gallerie.ui.theme.GallerieTheme
 
-// Classe pour représenter une œuvre d'art
 data class Artwork(
     val title: String,
     val artist: String,
@@ -42,18 +41,17 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
         Artwork("Titre 3", "Artiste 3", "2022", R.drawable.why_gallery)
     )
 
-    var currentIndex by remember { mutableStateOf(0) } // État pour l'indice de l'œuvre actuelle
+    var currentIndex by remember { mutableStateOf(0) }
 
-    val currentArtwork = artworks[currentIndex] // Obtenez l'œuvre actuelle
-
+    val currentArtwork = artworks[currentIndex]
     Column(modifier = modifier
         .fillMaxSize()
         .padding(16.dp),
 
     ) {
-        ArtGalleryWall(currentArtwork) // Affichez l'œuvre actuelle
-        ArtworkDescription(currentArtwork) // Affichez les détails de l'œuvre actuelle
-        ControlButtons { direction -> // Passez la direction à la logique des boutons
+        ArtGalleryWall(currentArtwork)
+        ArtworkDescription(currentArtwork)
+        ControlButtons { direction ->
             currentIndex = when (direction) {
                 Direction.NEXT -> (currentIndex + 1) % artworks.size
                 Direction.PREVIOUS -> (currentIndex - 1 + artworks.size) % artworks.size
@@ -90,7 +88,7 @@ fun ControlButtons(onDirectionChange: (Direction) -> Unit) {
         Button(onClick = { onDirectionChange(Direction.PREVIOUS) }) {
             Text("Précédent")
         }
-        Spacer(modifier = Modifier.weight(1f)) // Espace entre les boutons
+        Spacer(modifier = Modifier.weight(1f))
         Button(onClick = { onDirectionChange(Direction.NEXT) }) {
             Text("Suivant")
         }
